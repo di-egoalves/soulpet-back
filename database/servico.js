@@ -25,4 +25,7 @@ Pet.belongsToMany(Servico, {through: Agendamento});
 Servico.belongsToMany(Pet, {through: Agendamento});
 
 
-module.exports = { Servico, Agendamento };
+module.exports = {
+    Servico,
+    Agendamento
+};
