@@ -1,3 +1,4 @@
+
 const { Router } = require("express");
 const Produto = require("../database/produto");
 
@@ -32,3 +33,5 @@ router.post("/produtos", async (req, res) => {
 });
 
 module.exports = router;
+
+
