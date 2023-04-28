@@ -12,4 +12,5 @@ const Servico = connection.define("servico", {
     },
 });
 
-module.exports = {Servico};
+
+module.exports = Servico;
