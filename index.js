@@ -3,11 +3,33 @@ const cors = require("cors");
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
+const helmet = require("helmet");
+const session = require("express-session");
+const compression = require("compression");
 
 // Configuração do App
 const app = express();
 app.use(express.json()); // Possibilitar transitar dados usando JSON
 app.use(morgan("dev"));
+
+//Configuração do compression - Desempenho
+app.use(compression());
+
+// Configuração do Helmet - Segurança
+app.use(helmet());
+
+// Configuração de sessão - Segurança
+app.use(session(
+  {
+    secret: "sagdasdasdgusag",
+    name: "sessionId1",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {secure: true,
+              httpOnly: true,
+            }
+  }
+));
 
 // Configurações de acesso
 app.use(cors({ origin: "http://localhost:3000" }));
@@ -22,7 +44,6 @@ const rotasPets = require("./routes/pets");
 const rotasPedidos = require("./routes/pedidos");
 const rotasProdutos = require("./routes/produtos");
 const rotasServicos = require("./routes/servicos")
-const rotasProdutos = require("./routes/produtos");
 
 
 
