@@ -47,31 +47,7 @@ router.post("/clientes", async (req, res) => {
 });
 
 // atualizar um cliente
-router.put("/clientes/:id", async (req, res) => {
-  // obter dados do corpo da requisão
-  const { nome, email, telefone, endereco } = req.body;
-  // obter identificação do cliente pelos parametros da rota
-  const { id } = req.params;
-  try {
-    // buscar cliente pelo id passado
-    const cliente = await Cliente.findOne({ where: { id } });
-    // validar a existência desse cliente no banco de dados
-    if (cliente) {
-      // validar a existência desse do endereço passdo no corpo da requisição
-      if (endereco) {
-        await Endereco.update(endereco, { where: { clienteId: id } });
-      }
-      // atualizar o cliente com nome, email e telefone
-      await cliente.update({ nome, email, telefone });
-      res.status(200).json({ message: "Cliente editado." });
-    } else {
-      res.status(404).json({ message: "Cliente não encontrado." });
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Um erro aconteceu." });
-  }
-});
+
 
 // excluir um cliente
 router.delete("/clientes/:id", async (req, res) => {
