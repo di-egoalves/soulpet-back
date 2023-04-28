@@ -105,5 +105,22 @@ router.put("/produto/:id", async (req, res) => {
     }
 });
 
+//excluir produto
+router.delete("/produto/:id", async (req, res) => {
+    const { id } = req.params;
+    const produto = await Produto.findOne({ where: { id } });
+
+    try {
+        if (produto) {
+            await produto.destroy();
+            res.status(200).json({ message: "Produto removido." });
+        } else {
+            res.status(404).json({ message: "Produto não encontrado." });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Um erro aconteceu." });
+    }
+});
 module.exports = router;
 
