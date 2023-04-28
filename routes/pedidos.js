@@ -78,4 +78,28 @@ router.post("/pedidos", async (req, res) => {
   
   });
 
+  router.put('/pedidos/:codigo', async (req, res) => {
+    const codigo = req.params.codigo;
+    const pedido = await Pedido.findByPk(codigo);
+  
+    if (!pedido) {
+      return res.status(404).send('Pedido não encontrado');
+    }
+  
+    const { quantidade, clienteId, produtoId } = req.body;
+  
+    if (!quantidade || !clienteId || !produtoId) {
+      return res.status(400).send('Campos inválidos');
+    }
+  
+    try {
+      await pedido.update({ quantidade, clienteId, produtoId });
+  
+      res.send(pedido);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Erro ao atualizar pedido');
+    }
+  });
+
   module.exports = router;
