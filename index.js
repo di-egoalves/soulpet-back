@@ -44,8 +44,7 @@ const rotasPets = require("./routes/pets");
 const rotasPedidos = require("./routes/pedidos");
 const rotasProdutos = require("./routes/produtos");
 const rotasServicos = require("./routes/servicos");
-const rotasAgendamentos = require("./routes/agendamentos")
-const rotasServicos = require("./routes/servicos")
+const rotasAgendamentos = require("./routes/agendamentos");
 
 // Juntar ao app as rotas dos arquivos
 app.use(rotasClientes); // Configurar o grupo de rotas no app
@@ -53,7 +52,6 @@ app.use(rotasPets);
 app.use(rotasPedidos); 
 app.use(rotasProdutos);
 app.use(rotasServicos);
-app.use(rotasProdutos);
 app.use(rotasAgendamentos);
 
 

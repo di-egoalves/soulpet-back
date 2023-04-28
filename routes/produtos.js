@@ -9,7 +9,7 @@ const router = Router();
 router.get("/produtos", async (req, res) => {
     try {
         const listaProdutos = await Produto.findAll();
-        res.status(201).json({ message: "Lista de produtos:", listaProdutos });
+        res.status(201).json(listaProdutos);
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "Um erro aconteceu." });
@@ -26,7 +26,7 @@ router.get("/produto", async (req, res) => {
         const produtos = await Produto.findAll({ where });
 
         if (produtos.length > 0) {
-            res.status(200).json({ message: "Lista de produtos:", listaProdutos: produtos });
+            res.status(200).json({ listaProdutos: produtos });
         } else {
             res.status(404).json({ message: "Nenhum produto encontrado!" });
         }
@@ -46,7 +46,7 @@ router.get("/produtos/:id", async (req, res) => {
 
     try {
         if (produto) {
-            res.status(201).json({ message: "Produto encontrado: ", produto });
+            res.status(201).json(produto);
         } else {
             res.status(404).json({ message: "Produto não encontrado." });
         }
