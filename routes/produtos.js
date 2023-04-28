@@ -32,3 +32,4 @@ router.post("/produtos", async (req, res) => {
 });
 
 module.exports = router;
+
