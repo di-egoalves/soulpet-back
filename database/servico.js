@@ -1,7 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { connection } = require("./database");
 
-
 const Servico = connection.define("servico", {
     nome: {
         type: DataTypes.STRING,
@@ -12,5 +11,6 @@ const Servico = connection.define("servico", {
         allowNull: false,
     },
 });
+
 
 module.exports = Servico;
