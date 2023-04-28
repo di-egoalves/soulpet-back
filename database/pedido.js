@@ -8,10 +8,16 @@ const Pedido = connection.define("pedido", {
     type: DataTypes.UUID,
     allowNull: false,
     primaryKey: true,
+    validate: {
+      notEmpty: true,
+    }
   },
   quantidade: {
     type: DataTypes.STRING(100),
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    }
   },
 });
 
