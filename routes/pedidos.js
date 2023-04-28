@@ -102,4 +102,61 @@ router.post("/pedidos", async (req, res) => {
     }
   });
 
+  router.delete('/pedidos/:codigo', async (req, res) => {
+    const codigo = req.params.codigo;
+    const pedido = await Pedido.findOne({
+      where: { codigo },
+      include: [Cliente, Produto],
+    });
+  
+    if (!pedido) {
+      return res.status(404).send('Pedido não encontrado');
+    }
+  
+    try {
+      await pedido.destroy();
+  
+      res.send(`Pedido ${codigo} removido com sucesso`);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Erro ao remover pedido');
+    }
+  });
+  
+  router.delete('/pedidos/clientes/:id', async (req, res) => {
+    const id = req.params.id;
+    const cliente = await Cliente.findByPk(id);
+  
+    if (!cliente) {
+      return res.status(404).send('Cliente não encontrado');
+    }
+  
+    try {
+      await Pedido.destroy({ where: { ClienteId: id } });
+  
+      res.send(`Pedidos do cliente ${id} removidos com sucesso`);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Erro ao remover pedidos');
+    }
+  });
+  
+  router.delete('/pedidos/produtos/:id', async (req, res) => {
+    const id = req.params.id;
+    const produto = await Produto.findByPk(id);
+  
+    if (!produto) {
+      return res.status(404).send('Produto não encontrado');
+    }
+  
+    try {
+      await Pedido.destroy({ where: { ProdutoId: id } });
+  
+      res.send(`Pedidos do produto ${id} removidos com sucesso`);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Erro ao remover pedidos');
+    }
+  });
+
   module.exports = router;
