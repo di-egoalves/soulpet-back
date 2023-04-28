@@ -1,18 +1,21 @@
 const { DataTypes } = require("sequelize");
 const { connection } = require("./database");
-const { Agendamento } = require("./servico");
+const Servico = require("./servico");
+const Pet = require("./pet");
 
-const PetServico = connection.define("petServico", {
+const Agendamento = connection.define("agendamento", {
     dataAgendada: {
         type: DataTypes.DATEONLY,
         allowNull: false,
     },
     realizada: {
         type: DataTypes.TEXT,
-        allowNull: true,
+        allowNull: false,
+        defaultValue: false,
     },
 });
 
-PetServico.belongsTo(Agendamento);
+Servico.belongsToMany(Pet, { through: Agendamento });
+Pet.belongsToMany(Servico, { through: Agendamento });
 
-module.exports={PetServico}
+module.exports = Agendamento;

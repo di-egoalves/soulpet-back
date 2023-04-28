@@ -43,9 +43,9 @@ const rotasClientes = require("./routes/clientes");
 const rotasPets = require("./routes/pets");
 const rotasPedidos = require("./routes/pedidos");
 const rotasProdutos = require("./routes/produtos");
+const rotasServicos = require("./routes/servicos");
+const rotasAgendamentos = require("./routes/agendamentos")
 const rotasServicos = require("./routes/servicos")
-
-
 
 // Juntar ao app as rotas dos arquivos
 app.use(rotasClientes); // Configurar o grupo de rotas no app
@@ -54,12 +54,13 @@ app.use(rotasPedidos);
 app.use(rotasProdutos);
 app.use(rotasServicos);
 app.use(rotasProdutos);
+app.use(rotasAgendamentos);
 
 
 // Escuta de eventos (listen)
 app.listen(3001, () => {
   // Gerar as tabelas a partir do model
   // Force = apaga tudo e recria as tabelas
-  connection.sync({});
+  connection.sync();
   console.log("Servidor rodando em http://localhost:3001/");
 });
