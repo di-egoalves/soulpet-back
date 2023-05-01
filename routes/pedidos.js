@@ -25,7 +25,7 @@ router.post("/pedidos", async (req, res) => {
   });
 
   router.get("/pedidos", async (req, res) => {
-    const listaPedidos = await Pedido.findAll();
+    const listaPedidos = await Pedido.findAll( {include: [Cliente, Produto]});
     res.json(listaPedidos);
   });
   
