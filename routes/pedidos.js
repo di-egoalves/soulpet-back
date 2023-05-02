@@ -13,8 +13,8 @@ router.post("/pedidos", async (req, res) => {
     try {
       const cliente = await Cliente.findByPk(clienteId);
       if (cliente) {
-        const pet = await Pedido.create({ codigo, quantidade, clienteId, produtoId});
-        res.status(201).json(pet);
+        const produto = await Pedido.create({ codigo, quantidade, clienteId, produtoId});
+        res.status(201).json(produto);
       } else {
         res.status(404).json({ message: "Cliente não encontrado." });
       }
@@ -36,7 +36,7 @@ router.post("/pedidos", async (req, res) => {
     if (pedidoId) {
       res.json(pedidoId);
     } else {
-      res.status(404).json({ message: "Pet não encontrado." });
+      res.status(404).json({ message: "Produto não encontrado." });
     }
   });
   
