@@ -15,7 +15,8 @@ const Agendamento = connection.define("agendamento", {
     },
 });
 
-Pet.hasMany(Agendamento);
-Pet.hasMany(Servico);
+Pet.hasMany(Agendamento)
+Servico.hasMany(Agendamento)
+
 
 module.exports = Agendamento;
