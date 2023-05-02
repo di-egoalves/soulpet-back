@@ -45,6 +45,8 @@ router.get('/relatorio', async (req, res) => {
         doc.text(`${pet.nome} - ${pet.tipo}`);
       });
     }
+
+    doc.text('\n\n');
   });
 
   // envia o documento PDF como resposta para a solicitação
@@ -59,7 +61,7 @@ router.get("/clientes/:id", async (req, res) => {
   // SELECT * FROM clientes WHERE id = 1;
   const cliente = await Cliente.findOne({
     where: { id: req.params.id },
-    include: [Endereco], // trás junto os dados de endereço
+    include: [Endereco, Pets], // trás junto os dados de endereço
   });
 
   if (cliente) {
