@@ -1,5 +1,7 @@
 const Cliente = require("../database/cliente");
 const Endereco = require("../database/endereco");
+const Pets = require("../database/pet");
+const PDFDocument = require('pdfkit');
 
 const { Router } = require("express");
 
@@ -12,6 +14,45 @@ router.get("/clientes", async (req, res) => {
   const listaClientes = await Cliente.findAll();
   res.json(listaClientes);
 });
+
+//rota busca clientes e pets
+router.get('/relatorio', async (req, res) => {
+
+  const relatorio = await Cliente.findAll({ include: [Endereco, Pets] });
+
+  const doc = new PDFDocument();
+
+  //define o nome do arquivo
+  res.setHeader('Content-Disposition', 'attachment; filename="relatorioclientes.pdf"');
+
+  // escreve as informações dos clientes no documento PDF
+  doc.text('Relatório de clientes\n\n');
+  relatorio.forEach(cliente => {
+    // console.log(cliente);
+    doc.text(`Nome: ${cliente.nome}`);
+    doc.text(`Telefone: ${cliente.telefone}`);
+    doc.text(`Email: ${cliente.email}`);
+    doc.text(`Rua: ${cliente.endereco.rua}`);
+    doc.text(`Número: ${cliente.endereco.numero}`);
+    doc.text(`Cidade: ${cliente.endereco.cidade}`);
+    doc.text(`CEP: ${cliente.endereco.rep}`);
+    doc.text(`UF: ${cliente.endereco.uf}`);
+
+    if (cliente.pets && cliente.pets.length > 0) {
+      doc.text('Pets:');
+      doc.text(`Quantidade de pets: ${cliente.pets.length}`);
+      cliente.pets.forEach((pet) => {
+        doc.text(`${pet.nome} - ${pet.tipo}`);
+      });
+    }
+  });
+
+  // envia o documento PDF como resposta para a solicitação
+  res.setHeader('Content-Type', 'application/pdf');
+  doc.pipe(res);
+  doc.end();
+});
+
 
 // /clientes/1, 2
 router.get("/clientes/:id", async (req, res) => {
