@@ -52,7 +52,34 @@ router.put("/agendamentos/:id", async (req, res) => {
   }
 });
 
+//Rota DELETE UM AGENDAMENTO
+router.delete('/agendamentos/:id', async (req, res) => {
+  const { id } = req.params;
+  const agendamento = await Agendamento.findByPk(id);
 
+  try {
+      if(agendamento){
+          await agendamento.destroy();
+          res.status(200).json({ message: 'Agendamento deletado' });
+      }else{
+          res.status(404).json({ message: 'Não encontramos esse agendamento' });
+      }
+
+  } catch (error) {
+      res.status(500).json({ message: 'Um erro aconteceu' });
+  }
+});
+
+//ROTA DELETE TODOS AGENDAMENTOS
+router.delete("/agendamentos/", async (req,res)=> {
+  try {
+      await Agendamento.destroy({where: {}});
+      res.json({message:"Todos os Agendamentos deletados com sucesso"})
+  } catch(err){
+      console.log(err);
+      res.status(500).json({message:"Um erro aconteceu!"})
+  }
+});
 
     module.exports = router;
 
