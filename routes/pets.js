@@ -87,4 +87,17 @@ router.delete("/pets/:id", async (req, res) => {
   }
 });
 
+router.get("/clientes/:clienteId/pets", async (req, res)=> {
+  const clienteId = req.params.clienteId;
+
+  const cliente = await Cliente.findOne({where: {Id: clienteId}, include: [Pet],});
+  if (cliente) {
+    res.status(201).json(cliente);
+  } else {
+    res.status(404).json({ message: "Cliente inválido"})
+  }
+
+});
+
+
 module.exports = router;
