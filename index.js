@@ -45,6 +45,7 @@ const rotasPedidos = require("./routes/pedidos");
 const rotasProdutos = require("./routes/produtos");
 const rotasServicos = require("./routes/servicos");
 const rotasAgendamentos = require("./routes/agendamentos");
+const rotasDashboard = require("./routes/dashboard")
 
 
 // Juntar ao app as rotas dos arquivos
@@ -54,6 +55,7 @@ app.use(rotasPedidos);
 app.use(rotasProdutos);
 app.use(rotasServicos);
 app.use(rotasAgendamentos);
+app.use(rotasDashboard);
 
 
 // Escuta de eventos (listen)
