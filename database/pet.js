@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const { connection } = require("./database");
 const Cliente = require("./cliente");
 
-const Pet = connection.define("pet", {
+const Pet = connection.define("pet", {  
   nome: {
     type: DataTypes.STRING(130),
     allowNull: false,

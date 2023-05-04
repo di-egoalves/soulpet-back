@@ -27,6 +27,18 @@ router.get("/agendamentos", async (req,res) => {
   }
 });
 
+//ROTA Get por ID
+router.get("/agendamentos/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const agendamento = await Agendamento.findByPk(id);
+  if (agendamento) {
+    res.json(agendamento);
+  } else {
+    res.status(404).json({ message: "Agendamento não encontrado." });
+  }
+});
+
 //ROTA PUT
 router.put("/agendamentos/:id", async (req, res) => {
 
